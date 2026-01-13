@@ -135,6 +135,9 @@ function verify(){
 
     done
 
+	# Poner la contraseña del nivel 0 automáticamente. Es con la que se empieza
+	sed -i "/IN-0=/,/IN-0==/ { /Contraseña de acceso.*:/ s|: .*|: bandit0| }" "$PSWD_FILE"
+
     clear
     echo -e "\n${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━───────────────────────────━━┓"
     echo -e "┃   ${gre}[!] ${cia}Archivo de contraseñas correctamente creado.${pur}   ┃"
