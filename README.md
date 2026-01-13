@@ -246,7 +246,7 @@ pip3 install pup
 **Shadow0011**
 
 - GitHub: [@Shadow0011](https://github.com/Shadow0011)
-- Versión: 0.6
+- Versión: 0.7-Beta
 
 ---
 
