@@ -224,7 +224,6 @@ pip3 install pup
 
 ### Ideas para Contribuir
 
-- 📝 Completar writeups faltantes (niveles 13-34)
 - 🎨 Mejorar la interfaz visual
 - 🔧 Añadir más funcionalidades (historial, estadísticas, etc.)
 - 🐛 Reportar bugs
