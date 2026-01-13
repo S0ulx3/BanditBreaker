@@ -115,19 +115,7 @@ La primera vez que ejecutes el script:
 ### Menú Principal
 
 ```
-╔═══════════════[ Menu ]═══[ BanditBreaker ]═══════════════╗
-║                                                          ║
-║  c) Conectarse al nivel                                  ║
-║  r) Aprender a resolver el nivel                         ║
-║  p) Establecer contraseña de acceso                      ║
-║                                                          ║
-╠══════════════════════════════════════════════════════════╣
-║     ⬡ Introduce un número para cambiar de nivel ⬡       ║
-╠══════════════════════════════════════════════════════════╣
-║          ◄ [a] Anterior    ┃    Siguiente [s] ►          ║
-╠══════════════════════════════════════════════════════════╣
-║                 e) Salir del script   ▼                  ║
-╚══════════════════════════════════════════════════════════╝
+![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Menu.png)
 ```
 
 ### Comandos
@@ -161,19 +149,7 @@ La primera vez que ejecutes el script:
 
 ### Vista de Nivel
 ```
-╔═══════════════════════════════════════════════════════════╗
-║  ─  Nivel ─ 5 ┃ IP: bandit5@bandit.labs.overthewire.org   ┃
-┣━━━━━━━━━━═══════════════════════════════════════━━━━━━━━━━┫
-║  ─  Contraseña de acceso: lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR
-┣━━━━━━━━━━━━═════════════════════════════════════━━━━━━━━━━┫
-║    ─              Descripción del nivel ── Level Goal     ║
-┣━━━━━━━━━━━━════════════════════════════════════════━━━━━━━┫
-  The password for the next level is stored somewhere on
-  the server and has all of the following properties:
-  - human-readable
-  - 1033 bytes in size
-  - not executable
-...
+![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Level.png)
 ```
 
 ### Conexión SSH Automática
