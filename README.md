@@ -242,9 +242,7 @@ pip3 install pup
 
 ## 📝 Roadmap
 
-- [ ] Completar todos los writeups (0-34)
-- [ ] Sistema de hints progresivos
-- [ ] Modo "challenge" (sin writeups)
+- [x] Completar todos los writeups (0-34)
 - [ ] Estadísticas de progreso
 - [ ] Exportar/importar contraseñas
 - [ ] Integración con otros wargames de OverTheWire
@@ -270,8 +268,10 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 ## ⭐ Agradecimientos
 
 - [OverTheWire](https://overthewire.org/) - Por crear estos excelentes retos
+- [Alexandre CHERON](https://axcheron.github.io/writeups/otw/bandit/) - Por crear los Writeups
 - Comunidad de seguridad informática
-- Todos los que contribuyen al proyecto
+- Todos los que contribuyan al proyecto
+
 
 ---
 
