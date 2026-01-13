@@ -182,12 +182,6 @@ BanditBreaker/
 
 - ✅ **Uso apropiado**: Entorno de aprendizaje personal
 - ❌ **NO usar para**: Contraseñas reales o entornos de producción
-- 🔒 **Recomendación**: Elimina `passwords.txt` cuando termines de practicar
-
-```bash
-# Limpiar contraseñas al terminar
-rm -f passwords.txt
-```
 
 ---
 
