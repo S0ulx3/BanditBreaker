@@ -114,9 +114,7 @@ La primera vez que ejecutes el script:
 
 ### Menú Principal
 
-```
-![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Menu.png)
-```
+![Menú Principal](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Menu.png)
 
 ### Comandos
 
@@ -148,9 +146,9 @@ La primera vez que ejecutes el script:
 ## 📸 Capturas
 
 ### Vista de Nivel
-```
+
 ![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Level.png)
-```
+
 
 ### Conexión SSH Automática
 ```
