@@ -59,7 +59,7 @@ Perfecto para:
 ### 📚 Writeups Integrados
 - Guías paso a paso para resolver cada nivel
 - Se abren con `less` para fácil navegación
-- *[En desarrollo]* - Más writeups próximamente
+- *[En desarrollo]* - Mejores Writeups proximamente...
 
 ### 📦 Instalación Automática
 - Verifica e instala dependencias automáticamente
