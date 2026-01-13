@@ -149,14 +149,6 @@ La primera vez que ejecutes el script:
 
 ![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Level.png)
 
-
-### Conexión SSH Automática
-```
-┏━━──────────━━══[ BanditBreaker ]══━━─────────━━┓
-┃  [!] Sesión SSH finalizada. Volviendo al Menú  ┃
-┗━━════════════════════════════════════════════━━┛
-```
-
 ---
 
 ## 📂 Estructura del Proyecto
