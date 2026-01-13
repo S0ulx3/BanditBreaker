@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## BanditBreaker ## By Shadow0011 ## V0.6-beta ##
+## BanditBreaker ## By Shadow0011 ## V0.7-beta
 
 
 # Funcion ctrl+c
@@ -24,7 +24,7 @@ WTPS_DIR='./Writeups'
 init_level=0 # Nivel de preview por defecto
 
 
-# Colores normales - de momento no se usan
+# Colores ( De momento sin uso )
 #red='\e[31m'
 #gre='\e[32m'
 #yel='\e[33m'
@@ -41,6 +41,27 @@ gre='\e[38;5;46m'    # Verde Matrix (éxito, confirmaciones)
 yel='\e[38;5;226m'   # Amarillo brillante (advertencias)
 red='\e[38;5;196m'   # Rojo intenso (errores)
 blu='\e[38;5;39m'    # Azul neón (secundario)
+
+
+# Función que muestra el logo del script
+function logo(){
+
+tput civis
+echo -e "\n${pur}"
+echo -e " ▄▄▄▄    ▄▄▄       ███▄    █ ▓█████▄  ██▓▄▄▄█████▓ ▄▄▄▄    ██▀███  ▓█████ ▄▄▄       ██ ▄█▀▓█████  ██▀███  ";
+echo -e "▓█████▄ ▒████▄     ██ ▀█   █ ▒██▀ ██▌▓██▒▓  ██▒ ▓▒▓█████▄ ▓██ ▒ ██▒▓█   ▀▒████▄     ██▄█▒ ▓█   ▀ ▓██ ▒ ██▒";
+echo -e "▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒░██   █▌▒██▒▒ ▓██░ ▒░▒██▒ ▄██▓██ ░▄█ ▒▒███  ▒██  ▀█▄  ▓███▄░ ▒███   ▓██ ░▄█ ▒";
+echo -e "▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█▄   ▌░██░░ ▓██▓ ░ ▒██░█▀  ▒██▀▀█▄  ▒▓█  ▄░██▄▄▄▄██ ▓██ █▄ ▒▓█  ▄ ▒██▀▀█▄  ";
+echo -e "░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▓ ░██░  ▒██▒ ░ ░▓█  ▀█▓░██▓ ▒██▒░▒████▒▓█   ▓██▒▒██▒ █▄░▒████▒░██▓ ▒██▒";
+echo -e "░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒▓  ▒ ░▓    ▒ ░░   ░▒▓███▀▒░ ▒▓ ░▒▓░░░ ▒░ ░▒▒   ▓▒█░▒ ▒▒ ▓▒░░ ▒░ ░░ ▒▓ ░▒▓░";
+echo -e "▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ▒  ▒  ▒ ░    ░    ▒░▒   ░   ░▒ ░ ▒░ ░ ░  ░ ▒   ▒▒ ░░ ░▒ ▒░ ░ ░  ░  ░▒ ░ ▒░";
+echo -e " ░    ░   ░   ▒      ░   ░ ░  ░ ░  ░  ▒ ░  ░       ░    ░   ░░   ░    ░    ░   ▒   ░ ░░ ░    ░     ░░   ░ ";
+echo -e " ░            ░  ░         ░    ░     ░            ░         ░        ░  ░     ░  ░░  ░      ░  ░   ░     ";
+echo -e "      ░                       ░                         ░                                                 ";
+echo -e "\n${end}"; sleep 1.5; tput cnorm
+
+}
+
 
 
 # Funcion que se encarga de instalar los programas necesarios
@@ -70,17 +91,31 @@ function verify(){
 
     done
 
+
     # Verifica y crea la carpeta de writeups junto a los writeups
     if [ ! -d "$WTPS_DIR" ]; then
 
     mkdir "$WTPS_DIR"
+
+	clear; tput civis
+    echo -e "${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────────────━━┓"
+    echo -e "${pur}┃   ${red}[!] ${cia}Se van a crear los Writeups de los niveles...      ${pur} ┃"
+    echo -e "${pur}┗━━═══════════════════════════════════════════════════════━━┛${end}"
+    echo -e "${pur}    ╰─>${cia} Extrayendo desde: ${yel}https://axcheron.github.io/writeups/otw/bandit/${end}\n"
 
     for vuelta in {0..34}; do
 
 	make_writeups "$vuelta"
 
     done
+
+	clear
+    echo -e "\n${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────━━┓"
+    echo -e "┃   ${gre}[!] ${cia}Archivo de Writeups correctamente creado.${pur}   ┃"
+    echo -e "┗━━════════════════════════════════════════════════━━┛${end}\n"; sleep 3; tput cnorm;
+
     fi
+
 
 
     # Archivo de contraseñas
@@ -103,7 +138,7 @@ function verify(){
     clear
     echo -e "\n${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━───────────────────────────━━┓"
     echo -e "┃   ${gre}[!] ${cia}Archivo de contraseñas correctamente creado.${pur}   ┃"
-    echo -e "┗━━══════════════════════════════════════════════════━━┛${end}\n"; sleep 3.5; tput cnorm;
+    echo -e "┗━━══════════════════════════════════════════════════━━┛${end}\n"; sleep 3; tput cnorm;
 
     fi
 
@@ -112,145 +147,273 @@ levels
 }
 
 
-# Función para crear los writeups -- ( De manera provisional se escribirán lso writeups aquí manualmente, posiblemente en un futuro se extraigan automáticamente de alguna web )
+# Función para crear los writeups -- ( Primera versión automática )
 function make_writeups(){
 
 local LEVEL="$1"
+local content
 WTPS_FILE="$WTPS_DIR/bandit$LEVEL.txt"
 
+sleep 0.3 # Mini Delay para que no se sobrecargue de peticiones la página
 
 case $LEVEL in
-0)							# WRITEUP NIVEL 1
+0)							# WRITEUP NIVEL 0
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+1)                          # WRITEUP NIVEL 1
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+2)                          # WRITEUP NIVEL 2
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+3)                          # WRITEUP NIVEL 3
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+4)                          # WRITEUP NIVEL 4
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+5)                          # WRITEUP NIVEL 5
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+6)                          # WRITEUP NIVEL 6
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+7)                          # WRITEUP NIVEL 7
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+8)                          # WRITEUP NIVEL 8
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+9)                          # WRITEUP NIVEL 9
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+10)                          # WRITEUP NIVEL 10
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+11)                          # WRITEUP NIVEL 11
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+12)                          # WRITEUP NIVEL 12
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+13)                          # WRITEUP NIVEL 13
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+14)                          # WRITEUP NIVEL 14
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+15)                          # WRITEUP NIVEL 15
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+16)                          # WRITEUP NIVEL 16
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+17)                          # WRITEUP NIVEL 17
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+18)                          # WRITEUP NIVEL 18
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&lt|<|' | sed 's|&gt|>|')"
+
+echo "$content" > $WTPS_FILE
+;;
+19)                          # WRITEUP NIVEL 19
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+20)                          # WRITEUP NIVEL 20
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+21)                          # WRITEUP NIVEL 21
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+22)                          # WRITEUP NIVEL 22
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+23)                          # WRITEUP NIVEL 23
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+
+echo "$content" > $WTPS_FILE
+;;
+24)                          # WRITEUP NIVEL 24
 cat << 'EOF' > $WTPS_FILE
+================================================================================
+   BANDIT LEVEL 24 -> 25 | BRUTEFORCING PIN SERVICE (Port 30002)
+================================================================================
 
-  #                                                       #
-  #  ¡Bienvenido a este primer WRITEUP de BANDITBREAKER!  #
-  #                                                       #
+[ DESCRIPTION ]
+The goal is to retrieve the password for Level 25. A service is listening
+on port 30002 and will give the password if provided with:
+<Current Password> <4-digit PIN>
 
-    ######################
-    ## Bandit - Nivel 0 ##
-    ######################
+Since there are 10,000 possible PINs (0000-9999), we must automate the
+delivery using a Bash loop and Netcat.
 
+[ INTEL ]
+- Current User: bandit24
+- Current Pass: VAf7RxSNCZ94FuyvS9S7S66FbaAsIjlT
+- Target Port:  30002 (localhost)
 
+--------------------------------------------------------------------------------
+[ STEP 1: Setup Workspace ]
+--------------------------------------------------------------------------------
+# Create a temporary directory since /home is read-only
+mkdir -p /tmp/brute_24 && cd /tmp/brute_24
 
+--------------------------------------------------------------------------------
+[ STEP 2: The Attack (Command Sequence) ]
+--------------------------------------------------------------------------------
+# 1. Store the password in a variable for cleaner code
+PASS="VAf7RxSNCZ94FuyvS9S7S66FbaAsIjlT"
 
+# 2. Generate the wordlist and pipe it to the service
+# {0000..9999} handles the leading zeros automatically
+for pin in {0000..9999}; do
+    echo "$PASS $pin"
+done | nc localhost 30002 > raw_output.txt
+
+--------------------------------------------------------------------------------
+[ STEP 3: Extracting the Flag ]
+--------------------------------------------------------------------------------
+# The 'raw_output.txt' contains thousands of "Wrong!" messages.
+# We filter them out to find the successful attempt.
+
+grep -v "Wrong" raw_output.txt
+
+--------------------------------------------------------------------------------
+[ EXPECTED OUTPUT ]
+--------------------------------------------------------------------------------
+# You should see a response like this:
+# "Correct! The password for user bandit25 is: p7I5W6Sss2uS6ST6pAd693vEun9Q36L0"
+
+--------------------------------------------------------------------------------
+[ CLEANUP ]
+--------------------------------------------------------------------------------
+# Always remove your traces in /tmp
+cd .. && rm -rf /tmp/brute_24
+================================================================================
 
 EOF
 ;;
-1)
-cat << 'EOF' > $WTPS_FILE
+25)                          # WRITEUP NIVEL 25
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL--$NEXT_LEVEL-solution" | grep -B 10000 "33C" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL &am")"
 
-
-    ######################
-    ## Bandit - Nivel 1 ##
-    ######################
-
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-2)
-cat << 'EOF' > $WTPS_FILE
+26)                          # WRITEUP NIVEL 26
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-25--26-solution" | grep -A 10000 "Now, as we already have a shell using" | grep -B 10000 " command will give us the password." | sed 's/<[^>]*>//g')"
 
-
-    ######################
-    ## Bandit - Nivel 2 ##
-    ######################
-
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-3)
-cat << 'EOF' > $WTPS_FILE
+27)                          # WRITEUP NIVEL 27
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-	######################
-    ## Bandit - Nivel 3 ##
-    ######################
-
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-4)
-cat << 'EOF' > $WTPS_FILE
+28)                          # WRITEUP NIVEL 28
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-
-    ######################
-    ## Bandit - Nivel 4 ##
-    ######################
-
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-5)							# WRITEUP NIVEL 5
-cat << 'EOF' > $WTPS_FILE
+29)                          # WRITEUP NIVEL 29
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-    ######################
-    ## Bandit - Nivel 5 ##
-    ######################
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-6)
-cat << 'EOF' > $WTPS_FILE
+30)                          # WRITEUP NIVEL 30
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-    ######################
-    ## Bandit - Nivel 6 ##
-    ######################
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-7)
-cat << 'EOF' > $WTPS_FILE
+31)                          # WRITEUP NIVEL 31
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-    ######################
-    ## Bandit - Nivel 7 ##
-    ######################
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-8)
-cat << 'EOF' > $WTPS_FILE
+32)                          # WRITEUP NIVEL 32
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;&gt;|>>|')"
 
-    ######################
-    ## Bandit - Nivel 8 ##
-    ######################
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
-9)
-cat << 'EOF' > $WTPS_FILE
+33)                          # WRITEUP NIVEL 33
+NEXT_LEVEL=$((LEVEL + 1))
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "I Hope you" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL Solution")"
 
-    ######################
-    ## Bandit - Nivel 9 ##
-    ######################
-
-EOF
-;;
-10)							# WRITEUP NIVEL 10
-cat << 'EOF' > $WTPS_FILE
-
-    #######################
-    ## Bandit - Nivel 10 ##
-    #######################
-
-EOF
-;;
-11)
-cat << 'EOF' > $WTPS_FILE
-
-    #######################
-    ## Bandit - Nivel 11 ##
-    #######################
-
-EOF
-;;
-12)
-cat << 'EOF' > $WTPS_FILE
-
-    #######################
-    ## Bandit - Nivel 12 ##
-    #######################
-
-EOF
+echo "$content" > $WTPS_FILE
 ;;
 esac
 
@@ -452,7 +615,7 @@ function levels(){
 while true; do
 
     clear
-    show_files "$init_level"        # Mostrar la preview del nivel y su descripción, logo...
+    show_files "$init_level"        # Mostrar la preview del nivel con su info
 
 
 
@@ -532,6 +695,10 @@ while true; do
 done
 
 }
+
+
+# Mostrar logo del script
+logo
 
 # Verificamos 1 vez cada vez que se abre el script si están las herramientas necesarias actualizadas.
 verify
