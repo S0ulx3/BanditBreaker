@@ -112,7 +112,7 @@ function verify(){
 	clear
     echo -e "\n${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────━━┓"
     echo -e "┃   ${gre}[!] ${cia}Archivo de Writeups correctamente creado.${pur}   ┃"
-    echo -e "┗━━════════════════════════════════════════════════━━┛${end}\n"; sleep 3; tput cnorm;
+    echo -e "┗━━═══════════════════════════════════════════════━━┛${end}\n"; sleep 3; tput cnorm;
 
     fi
 
