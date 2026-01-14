@@ -74,7 +74,7 @@ Perfecto para:
 
 ---
 
-## ✨ Instalación
+## 🪛 Instalación
 
 ### Requisitos Previos
 
