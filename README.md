@@ -26,6 +26,12 @@
 
 </div>
 
+
+---
+## 📹 Vídeo
+
+[Video de la herramienta](https://youtu.be/sY99mLlkDOw?si=O9MnXt26zI7RLMIw)
+
 ---
 
 ## 📋 Descripción
@@ -68,7 +74,7 @@ Perfecto para:
 
 ---
 
-## 🛠️ Instalación
+## ✨ Instalación
 
 ### Requisitos Previos
 
