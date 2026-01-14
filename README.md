@@ -30,7 +30,7 @@
 ---
 ## 📹 Vídeo
 
-[Video de la herramienta](https://youtu.be/sY99mLlkDOw?si=O9MnXt26zI7RLMIw)
+[Video de la herramienta](https://www.youtube.com/watch?v=lj6e2Hseag4)
 
 ---
 
