@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## BanditBreaker ## By Shadow0011 ## V0.7-beta
+## BanditBreaker ## By Shadow0011 ## V0.7.1-beta
 
 
 # Funcion ctrl+c
@@ -103,11 +103,7 @@ function verify(){
     echo -e "${pur}┗━━═══════════════════════════════════════════════════════━━┛${end}"
     echo -e "${pur}    ╰─>${cia} Extrayendo desde: ${yel}https://axcheron.github.io/writeups/otw/bandit/${end}\n"
 
-    for vuelta in {0..34}; do
-
-	make_writeups "$vuelta"
-
-    done
+	make_writeups 		# Crear writeups
 
 	clear
     echo -e "\n${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────━━┓"
@@ -150,161 +146,30 @@ levels
 }
 
 
-# Función para crear los writeups -- ( Primera versión automática )
+# Función para crear los writeups -- ( Segunda versión automática - medio provisional -)
 function make_writeups(){
 
-local LEVEL="$1"
+# Variables locales
+local LEVEL
 local content
+
+	# Bucle que crea los archivos
+    for LEVEL in {0..34}; do
+
+# Variable que establece el nombre del archivo según la vuelta
 WTPS_FILE="$WTPS_DIR/bandit$LEVEL.txt"
 
-sleep 0.3 # Mini Delay para que no se sobrecargue de peticiones la página
+    sleep 0.25 # Mini Delay para que no se sobrecargue de peticiones la página
 
-case $LEVEL in
-0)							# WRITEUP NIVEL 0
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+        if [ $LEVEL -eq 18 ] || [ $LEVEL -eq 24 ] || [ $LEVEL -eq 25 ] || [ $LEVEL -eq 26 ] || [ $LEVEL -eq 32 ]; then		# Comprueba que el nivel sea o no uno de estos números 
 
-echo "$content" > $WTPS_FILE
-;;
-1)                          # WRITEUP NIVEL 1
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+        if [ $LEVEL -eq 18 ]; then		# Si el nivel es el 18 se realiza esta acción especifica
+            NEXT_LEVEL=$((LEVEL + 1))
+            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&lt|<|' | sed 's|&gt|>|')"
+            echo "$content" > $WTPS_FILE
+        fi
 
-echo "$content" > $WTPS_FILE
-;;
-2)                          # WRITEUP NIVEL 2
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-3)                          # WRITEUP NIVEL 3
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-4)                          # WRITEUP NIVEL 4
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-5)                          # WRITEUP NIVEL 5
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-6)                          # WRITEUP NIVEL 6
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-7)                          # WRITEUP NIVEL 7
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-8)                          # WRITEUP NIVEL 8
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-9)                          # WRITEUP NIVEL 9
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-10)                          # WRITEUP NIVEL 10
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-11)                          # WRITEUP NIVEL 11
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-12)                          # WRITEUP NIVEL 12
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-13)                          # WRITEUP NIVEL 13
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-14)                          # WRITEUP NIVEL 14
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-15)                          # WRITEUP NIVEL 15
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-16)                          # WRITEUP NIVEL 16
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-17)                          # WRITEUP NIVEL 17
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-18)                          # WRITEUP NIVEL 18
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&lt|<|' | sed 's|&gt|>|')"
-
-echo "$content" > $WTPS_FILE
-;;
-19)                          # WRITEUP NIVEL 19
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-20)                          # WRITEUP NIVEL 20
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-21)                          # WRITEUP NIVEL 21
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-22)                          # WRITEUP NIVEL 22
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-23)                          # WRITEUP NIVEL 23
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
-
-echo "$content" > $WTPS_FILE
-;;
-24)                          # WRITEUP NIVEL 24
+        if [ $LEVEL -eq 24 ]; then	# Si el nivel es el 24 se realiza esta acción especifica
 cat << 'EOF' > $WTPS_FILE
 ================================================================================
    BANDIT LEVEL 24 -> 25 | BRUTEFORCING PIN SERVICE (Port 30002)
@@ -363,62 +228,52 @@ cd .. && rm -rf /tmp/brute_24
 ================================================================================
 
 EOF
-;;
-25)                          # WRITEUP NIVEL 25
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL--$NEXT_LEVEL-solution" | grep -B 10000 "33C" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL &am")"
+        fi
 
-echo "$content" > $WTPS_FILE
-;;
-26)                          # WRITEUP NIVEL 26
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-25--26-solution" | grep -A 10000 "Now, as we already have a shell using" | grep -B 10000 " command will give us the password." | sed 's/<[^>]*>//g')"
+        if [ $LEVEL -eq 25 ]; then		# Si el nivel es el 25 se realiza esta acción especifica
+            NEXT_LEVEL=$((LEVEL + 1))
+            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL--$NEXT_LEVEL-solution" | grep -B 10000 "33C" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL &am")"
+            echo "$content" > $WTPS_FILE
+        fi
 
-echo "$content" > $WTPS_FILE
-;;
-27)                          # WRITEUP NIVEL 27
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+        if [ $LEVEL -eq 26 ]; then		# Si el nivel es el 26 se realiza esta acción especifica
+            NEXT_LEVEL=$((LEVEL + 1))
+            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-25--26-solution" | grep -A 10000 "Now, as we already have a shell using" | grep -B 10000 " command will give us the password." | sed 's/<[^>]*>//g')"
+            echo "$content" > $WTPS_FILE
+        fi
 
-echo "$content" > $WTPS_FILE
-;;
-28)                          # WRITEUP NIVEL 28
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+        if [ $LEVEL -eq 32 ];then		# Si el nivel es el 32 se realiza esta acción especifica
+            NEXT_LEVEL=$((LEVEL + 1))
+            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;&gt;|>>|')"
+            echo "$content" > $WTPS_FILE
+        fi
 
-echo "$content" > $WTPS_FILE
-;;
-29)                          # WRITEUP NIVEL 29
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
 
-echo "$content" > $WTPS_FILE
-;;
-30)                          # WRITEUP NIVEL 30
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+        else
 
-echo "$content" > $WTPS_FILE
-;;
-31)                          # WRITEUP NIVEL 31
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution")"
+            if [ $LEVEL -lt 10 ]; then		# Se comprueba si el nivel es inferior a 10 ya que los solo falta una excepción y es un número menor de 10
 
-echo "$content" > $WTPS_FILE
-;;
-32)                          # WRITEUP NIVEL 32
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;&gt;|>>|')"
+                if [ $LEVEL -eq 9 ]; then	# Si el nivel es el 9 se realiza esta acción especifica
+                NEXT_LEVEL=$((LEVEL + 1))
+                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+                echo "$content" > $WTPS_FILE
+                fi
 
-echo "$content" > $WTPS_FILE
-;;
-33)                          # WRITEUP NIVEL 33
-NEXT_LEVEL=$((LEVEL + 1))
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "I Hope you" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL Solution")"
+                NEXT_LEVEL=$((LEVEL + 1))		# Acción para todos los niveles que no son 18 24 25 26 32 y son menores de 10
+                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+                echo "$content" > $WTPS_FILE
 
-echo "$content" > $WTPS_FILE
-;;
-esac
+            else			# Acción para todos los niveles que no son 18 24 25 26 32 y son mayores de 10
+
+                NEXT_LEVEL=$((LEVEL + 1))
+                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+                echo "$content" > $WTPS_FILE
+
+            fi
+
+        fi
+
+    done
 
 }
 
