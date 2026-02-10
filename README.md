@@ -56,11 +56,13 @@ Perfecto para:
 - Almacenamiento local de contraseñas para cada nivel
 - Actualización manual de contraseñas
 - Limpieza automática de códigos ANSI
+- *[En desarrollo]* - Gestión de las claves RSA de los últimos niveles y de las conexiones.
 
 ### 🚀 Conexión Automática
 - Conexión SSH automática con `sshpass`
 - No necesitas recordar IPs, puertos ni contraseñas
 - Retorno automático al menú al desconectar
+- *[En desarrollo]* - Conexión a los últimos niveles, los cuales requieren realizar otro tipo de comandos y no establecer una sesión por SSH.
 
 ### 📚 Writeups Integrados
 - Guías paso a paso para resolver cada nivel
@@ -110,8 +112,8 @@ chmod +x banditbreaker.sh
 
 La primera vez que ejecutes el script:
 1. ✅ Verificará e instalará dependencias faltantes
-2. 📥 Descargará información de los 35 niveles de Bandit
-3. 📝 Creará writeups locales
+2. 📥 Descargará la información de los 34 niveles.
+3. 📝 Descargará los writeups de los 34 niveles.
 4. ⚡ ¡Listo para usar!
 
 ---
@@ -134,18 +136,6 @@ La primera vez que ejecutes el script:
 | `s` | Siguiente nivel |
 | `e` | Salir del script |
 | `Ctrl+C` | Salida de emergencia |
-
-### Workflow Típico
-
-1. **Primera vez en un nivel**:
-   ```
-   → Selecciona nivel → Opción 'r' (ver writeup) → Opción 'p' (guardar contraseña) → Opción 'c' (conectar)
-   ```
-
-2. **Niveles posteriores**:
-   ```
-   → Navega con 's' → Opción 'p' (guardar nueva contraseña) → Opción 'c' (conectar)
-   ```
 
 ---
 
@@ -203,16 +193,7 @@ BanditBreaker/
    ssh bandit0@bandit.labs.overthewire.org -p 2220
    ```
 
-### Dependencias no se instalan
-
-**Problema**: No tienes permisos de `sudo`.
-
-**Solución**: Instala manualmente:
-```bash
-sudo apt update
-sudo apt install sshpass ssh fzf curl wget
-pip3 install pup
-```
+### Mas en un futuro...
 
 ---
 
