@@ -82,11 +82,13 @@ Perfecto para:
 
 - **Sistema Operativo**: Linux (Debian/Ubuntu/Kali recomendados)
 - **Bash**: v5.0 o superior
-- **Permisos**: `sudo` para instalar dependencias
+- **Permisos**: `sudo` para instalar dependencias en caso de que la instalación automática no funcione.
 
-### Dependencias
+---
 
-El script instalará automáticamente:
+## Dependencias - Automático
+### El script instalará automáticamente
+
 - `sshpass` - Para automatizar conexiones SSH
 - `ssh` - Cliente SSH
 - `fzf` - Buscador fuzzy (futuras funcionalidades)
@@ -110,7 +112,8 @@ chmod +x BanditBreaker.sh
 ./BanditBreaker.sh
 ```
 
-La primera vez que ejecutes el script:
+### La primera vez que ejecutes el script
+
 1. ✅ Verificará e instalará dependencias faltantes
 2. 📥 Descargará la información de los 34 niveles.
 3. 📝 Descargará los writeups de los 34 niveles.
