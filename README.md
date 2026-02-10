@@ -230,9 +230,9 @@ BanditBreaker/
 
 ## 👤 Autor
 
-**Shadow0011**
+**Soul**
 
-- GitHub: [@Shadow0011](https://github.com/Shadow0011)
+- GitHub: [@S0ulx3](https://github.com/S0ulx3)
 - Versión: 0.7-Beta
 
 ---
