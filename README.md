@@ -98,7 +98,7 @@ El script instalará automáticamente:
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/Shadow0011/BanditBreaker.git
+git clone https://github.com/S0ulx3/BanditBreaker
 
 # Entrar al directorio
 cd BanditBreaker
