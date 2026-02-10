@@ -104,10 +104,10 @@ git clone https://github.com/S0ulx3/BanditBreaker
 cd BanditBreaker
 
 # Dar permisos de ejecución
-chmod +x banditbreaker.sh
+chmod +x BanditBreaker.sh
 
 # Ejecutar
-./banditbreaker.sh
+./BanditBreaker.sh
 ```
 
 La primera vez que ejecutes el script:
