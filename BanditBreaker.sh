@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## BanditBreaker ## By Shadow0011 ## V0.7.1-beta
+## BanditBreaker ## By Shadow0011 ## V0.7.3-beta
 
 
 # Funcion ctrl+c
@@ -27,9 +27,9 @@ init_level=0 # Nivel de preview por defecto
 # Colores ( De momento sin uso )
 #red='\e[31m'
 #gre='\e[32m'
-#yel='\e[33m'
+yel_caja='\e[33m'
 #blu='\e[34m'
-#pur='\e[35m'
+pur_caja='\e[35m'
 #cia='\e[36m'
 end='\e[0m'
 
@@ -81,6 +81,7 @@ function verify(){
             # Instalación de los demás comandos
             echo -e "\t${pur}┏━━━━━━══[${cia} BanditBreaker ${pur}]══━━─────────────────━━┓\n"
             echo -e "\t${red}    [!] ${cia}Comando ${red}$requirements ${cia}no instalado. ${red}[!]  \n"
+            echo -e "\t${yel}    [!] ${cia}Instalando comando ${red}$requirements${cia} ... [!]\n"
             echo -e "\t${pur}┗━━════════════════════════════════════════════━━┛${end}"
             sleep 1.2; tput cnorm
             sudo apt install "$requirements"
@@ -100,6 +101,7 @@ function verify(){
 	clear; tput civis
     echo -e "${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────────────━━┓"
     echo -e "${pur}┃   ${red}[!] ${cia}Se van a crear los Writeups de los niveles...      ${pur} ┃"
+    echo -e "${pur}┃   ${yel}[!] ${cia}Creando carpeta con los writeups...  ${yel}(./Writeups)  ${pur} ┃"
     echo -e "${pur}┗━━═══════════════════════════════════════════════════════━━┛${end}"
     echo -e "${pur}    ╰─>${cia} Extrayendo desde: ${yel}https://axcheron.github.io/writeups/otw/bandit/${end}\n"
 
@@ -122,6 +124,7 @@ function verify(){
     echo -e "${pur}┏━━══[${cia} BanditBreaker ${pur}]══━━────────────────────────────────━━┓"
     echo -e "${pur}┃   ${red}[!] ${cia}No se encontró el archivo de niveles, creando...${pur}    ┃"
     echo -e "${pur}┃   ${red}[!] ${cia}Puede tardar un poco, dependiendo de tu conexión.${pur}   ┃"
+    echo -e "${pur}┃   ${yel}[!] ${cia}Se introduciran los datos en: ${red}./passwords.txt${pur}       ┃"
     echo -e "${pur}┗━━═══════════════════════════════════════════════════════━━┛${end}"
 	echo -e "${pur}    ╰─>${cia} Extrayendo desde: ${yel}https://overthewire.org/wargames/bandit/${end}\n"
 
@@ -158,18 +161,26 @@ local content
 
 # Variable que establece el nombre del archivo según la vuelta
 WTPS_FILE="$WTPS_DIR/bandit$LEVEL.txt"
+NEXT_LEVEL=$(printf "%02d" $((LEVEL + 1)) | xargs)
 
     sleep 0.25 # Mini Delay para que no se sobrecargue de peticiones la página
 
-        if [ $LEVEL -eq 18 ] || [ $LEVEL -eq 24 ] || [ $LEVEL -eq 25 ] || [ $LEVEL -eq 26 ] || [ $LEVEL -eq 32 ]; then		# Comprueba que el nivel sea o no uno de estos números 
 
-        if [ $LEVEL -eq 18 ]; then		# Si el nivel es el 18 se realiza esta acción especifica
-            NEXT_LEVEL=$((LEVEL + 1))
-            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&lt|<|' | sed 's|&gt|>|')"
-            echo "$content" > $WTPS_FILE
-        fi
+case $LEVEL in			# Realizar scrapeo especifico  según el nivel
 
-        if [ $LEVEL -eq 24 ]; then	# Si el nivel es el 24 se realiza esta acción especifica
+[0-9])			# Accion especifica para niveles menores de 10
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
+echo "$content" > $WTPS_FILE
+;;
+16)
+	content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;|>|g' | sed "s|&amp;|\&|g")"
+	echo "$content" > $WTPS_FILE
+;;
+18)
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&lt|<|g' | sed 's|&gt|>|g')"
+echo "$content" > $WTPS_FILE
+;;
+24)
 cat << 'EOF' > $WTPS_FILE
 ================================================================================
    BANDIT LEVEL 24 -> 25 | BRUTEFORCING PIN SERVICE (Port 30002)
@@ -227,60 +238,34 @@ grep -v "Wrong" raw_output.txt
 cd .. && rm -rf /tmp/brute_24
 ================================================================================
 
+
 EOF
-        fi
-
-        if [ $LEVEL -eq 25 ]; then		# Si el nivel es el 25 se realiza esta acción especifica
-            NEXT_LEVEL=$((LEVEL + 1))
-            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL--$NEXT_LEVEL-solution" | grep -B 10000 "33C" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL &am")"
-            echo "$content" > $WTPS_FILE
-        fi
-
-        if [ $LEVEL -eq 26 ]; then		# Si el nivel es el 26 se realiza esta acción especifica
-            NEXT_LEVEL=$((LEVEL + 1))
-            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-25--26-solution" | grep -A 10000 "Now, as we already have a shell using" | grep -B 10000 " command will give us the password." | sed 's/<[^>]*>//g')"
-            echo "$content" > $WTPS_FILE
-        fi
-
-        if [ $LEVEL -eq 32 ];then		# Si el nivel es el 32 se realiza esta acción especifica
-            NEXT_LEVEL=$((LEVEL + 1))
-            content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;&gt;|>>|')"
-            echo "$content" > $WTPS_FILE
-        fi
-
-
-        else
-
-            if [ $LEVEL -lt 10 ]; then		# Se comprueba si el nivel es inferior a 10 ya que los solo falta una excepción y es un número menor de 10
-
-                if [ $LEVEL -eq 9 ]; then	# Si el nivel es el 9 se realiza esta acción especifica
-                NEXT_LEVEL=$((LEVEL + 1))
-                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-                echo "$content" > $WTPS_FILE
-                fi
-
-                NEXT_LEVEL=$((LEVEL + 1))		# Acción para todos los niveles que no son 18 24 25 26 32 y son menores de 10
-                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-0$LEVEL-solution" | grep -B10000 "id=\"bandit-0$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit 0$NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-                echo "$content" > $WTPS_FILE
-
-            else			# Acción para todos los niveles que no son 18 24 25 26 32 y son mayores de 10
-
-                NEXT_LEVEL=$((LEVEL + 1))
-                content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit 0$LEVEL Solution")"
-                echo "$content" > $WTPS_FILE
-
-            fi
-
-        fi
-
-    done
-
+;;
+25)
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL--$NEXT_LEVEL-solution" | grep -B 10000 "33C" | sed 's/<[^>]*>//g' | grep -v "Bandit $LEVEL &am")"
+echo "$content" > $WTPS_FILE
+;;
+26)
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-25--26-solution" | grep -A 10000 "Now, as we already have a shell using" | grep -B 10000 " command will give us the password." | sed 's/<[^>]*>//g')"
+echo "$content" > $WTPS_FILE
+;;
+32)
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A1000 "id=\"bandit-$LEVEL-solution" | grep -B1000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed 's|&gt;&gt;|>>|g')"
+echo "$content" > $WTPS_FILE
+;;
+*)				# Acción que se realiza para todos los numeros mayores de 10 sin contar las excepciones antes tratadas.
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" |  sed 's|&gt|>|g')"
+echo "$content" > $WTPS_FILE
+;;
+esac
+done
 }
 
 
 # Función para conectarse a los niveles automáticamente
 function connect_to_level(){
 
+# VARIABLES
 local LEVEL="$1"
 local IP="bandit$LEVEL@bandit.labs.overthewire.org"
 local PORT="2220"
@@ -293,12 +278,10 @@ sshpass -p "$PASS_CLEAN" ssh "$IP" -p "$PORT"
 # Mensaje que se muestra al volver a la sesión actual
 clear; tput civis
 
-#clear; echo -e "[$PASS_CLEAN]"; sleep 4; clear # DEBUG
-
 echo -e "\n\n${pur}┏━━──────────━━══[ ${cia}BanditBreaker${pur} ]══━━─────────━━┓"
 echo -e "┃  ${red}[!] ${cia}Sesión SSH finalizada. Volviendo al Menú  ${pur}┃"
 echo -e "┗━━════════════════════════════════════════════━━┛${end}\n"
-sleep 2.5; tput cnorm; return
+sleep 1.5; tput cnorm; return
 
 
 }
@@ -309,7 +292,7 @@ function learn_this_level(){
 local LEVEL="$1"
 WTPS_FILE="$WTPS_DIR/bandit$LEVEL.txt"
 
-less -R "$WTPS_FILE"
+(cat "$WTPS_FILE"; echo -e "\n${pur}---------------------------------${end}\n ${cia}[ Pulsa ${yel}q${cia} para volver al menú ]${end}") | less -R			# Sirve para ver los writeups y mostrar un texto con información para volver al menú
 
 }
 
@@ -317,13 +300,13 @@ less -R "$WTPS_FILE"
 # Funcion para crear automáticamente las fichas de cada nivel
 make_files(){
 
-# Variable que recoge el nivel indicado
+# Variable que recoge el nivel indicado y el siguiente nivel
 local LEVEL="$1"
 
 # Variables que guardan la descripción, notas, comandos...
 desc_preview="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Level Goal" | grep -v "Level Goal" | grep -B 10000 'Help!?' | grep -B 10000 "Commands" | grep -Ev 'Help!?|Donate!|Level Goal| you may need|ls,|ssh into bandit|NOTE|intended solution|instead.|shell-script|level!|NOTE 2|NOTE|Keep in mind|executed,|CONNECTED|Keep in mind|If you are having|try executing|very useful skill.|this is related|works as you think')"
 desc_preview2="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | pup "p" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -Ev 'Helpful note|manpage|s_client|using|SSL/TLS|grep|cp,|ls,|. ssh| TIP| machine!|NOTE|NOTE 2| challenging|occasionally|yourself,|Passwords for|saved automatically|Tip|CONNECTED COMMANDS|Keep in mind' | xargs)"
-commands="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Commands" | grep -B 10000 'Donate!' | head -n -4 | grep -v "Commands" | grep -Ev "bandit0|Passwords|challenging|:|Helpful|Google|Chapter|Secure|FOSS|wikiHow|YouTube|accurate|Addresses|Wikipedia|Ports|OpenSSL|Piping and Redirection" | sed 's/&amp;//' | xargs)"
+commands="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Commands" | grep -B 10000 'Donate!' | head -n -4 | grep -v "Commands" | grep -Ev "bandit0|Passwords|challenging|:|Helpful|Google|Chapter|Secure|FOSS|wikiHow|YouTube|accurate|Addresses|Wikipedia|Ports|OpenSSL|Piping and Redirection" | sed 's/&amp;//g' | xargs)"
 helpful_material="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Helpful Reading" | grep -B 10000 'Donate!' | head -n -4 | grep -v "Helpful")"
 helpful_note="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Helpful note" | grep -B 10000 "Commands you" | grep -v "Commands you")" # Para el nivel 15-16
 note="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "NOTE" | grep -B 10000 'Commands' | grep -v "Commands you may need")" # Nivel 20-21 y nivel 22-23
@@ -336,19 +319,19 @@ local PORT="2220"
 
 # INICIO DE LA FICHA | NIVEL IP Y PUERTO + DESCRIPCIÓN
 echo -e "${pur}[==IN-$LEVEL=======================================================================]" >> "$PSWD_FILE"
-echo -e "${pur}┃  ─  ${cia}Nivel ${pur}─ ${cia}$LEVEL ${pur}┃ ${cia}IP${pur}: ${cia}$IP ${pur}┃ ${cia}Puerto${pur}: ${cia}$PORT ${pur}─   ┃${end}" >> "$PSWD_FILE"
+echo -e "${pur}┏━━══(${cia}Bandit Breaker${pur})══════════════════════════════════════════════════━━━━━━━┓${end}" >> "$PSWD_FILE"
+echo -e "${pur}   ${cia}Nivel${pur} : ${cia}$LEVEL${pur}  |  ${cia}IP${pur} : ${cia}$IP  ${pur}|  ${cia}Puerto${pur} : ${cia}$PORT ${pur}  ${end}" >> "$PSWD_FILE"
 echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
-echo -e "${pur}┃  ─  ${cia}Contraseña de acceso${pur}: ${red}[No encontrada]${end}" >> "$PSWD_FILE" >> "$PSWD_FILE"
+echo -e "${pur}┃  ─  ${cia}Contraseña de acceso ${pur}: ${red}[No encontrada]${end}" >> "$PSWD_FILE" >> "$PSWD_FILE"
 echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 echo -e "${pur}┃    ─              ${blu}Descripción del nivel ${pur}── ${blu}Level Goal                  ${pur}─    ┃${end}" >> "$PSWD_FILE"
 echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 
-
 	# Mostrar descripción dependendiendo del nivel
 	if [[ $LEVEL -eq 20 || $LEVEL -eq 25 || $LEVEL -eq 34 ]]; then
-		echo -e "${cia}$desc_preview2 ${end}" | fmt -w 78 -s | pr -to 2 >> "$PSWD_FILE"
+		echo -e "${cia}$desc_preview2 ${end}" | fmt -w 78 -s | pr -to 3 >> "$PSWD_FILE"
 	else
-		echo -e "${cia}$desc_preview ${end}" | fmt -w 78 -s | pr -to 2 >> "$PSWD_FILE"
+		echo -e "${cia}$desc_preview ${end}" | fmt -w 78 -s | pr -to 3 >> "$PSWD_FILE"
 	fi
 
 
@@ -362,7 +345,7 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 	# Comprobar si para este nivel muestran comandos útiles o no, para mostrar un mensaje acorde
 	if $(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Commands" | grep -B 10000 'Donate!' | head -n -4 | grep -v "Commands" | grep -Ev "bandit0|Passwords|challenging|:|Helpful|Google|Chapter|Secure|FOSS|wikiHow|YouTube|accurate|Addresses|Wikipedia|Ports|OpenSSL" | xargs | grep "." &>/dev/null)
 	then
-		echo -e "${cia}$commands ${end}" | fmt -w 78 -s | pr -to 2 >> "$PSWD_FILE"
+		echo -e "${cia}$commands ${end}" | fmt -w 78 -s | pr -to 3 >> "$PSWD_FILE"
 	else
 		echo -e "${pur}┣━━─             ──  ${red}No hay recomendaciones para este nivel  ${pur}──           ─━━┫${end}" >> "$PSWD_FILE"
 	fi
@@ -422,6 +405,8 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 	:
 	fi
 
+echo -e "${pur}┗━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┛" >> "$PSWD_FILE"		# Texto final para cerrar el menú
+
 echo -e "${pur}[=======================================================================IN-$LEVEL==]${end}\n" >> "$PSWD_FILE"		# Final de la ficha
 
 }
@@ -432,11 +417,13 @@ function show_files(){
 
 # Mostrar la previsualización del nivel en la función levels
 local LEVEL="$1"
-content="$(cat $PSWD_FILE | grep -A 1000000 "IN-$LEVEL=" | grep -B 1000000 "IN-$LEVEL=")"
+content="$(cat $PSWD_FILE | grep -A 1000000 "IN-$LEVEL=" | grep -B 1000000 "IN-$LEVEL=" | grep -v "IN-$LEVEL=")"
 
-echo -e "${cia}╔═════════════════════════════════════════════════════════════════════════════════════════╗${end}"
+#echo -e "${cia}╔═════════════════════════════════════════════════════════════════════════════════════════╗${end}"
 echo -e "$content" | pr -to 4
-echo -e "${cia}╚═════════════════════════════════════════════════════════════════════════════════════════╝${end}"
+#echo -e "${cia}╚═════════════════════════════════════════════════════════════════════════════════════════╝${end}"
+
+# Se han removido los delimitadores por cuestiones de pruebas estéticas, puede que no sea permanente... (De todas formas los he dejado comentados por si a alguien le gustaban especialmente)
 
 }
 
@@ -445,7 +432,8 @@ function modify_password(){
 
 local LEVEL="$1"
 
-        read -p "$(echo -e "${pur}┣━━══${yel}[?] ${cia}Establecer${cia} contraseña de ${cia}acceso ${yel}--> ${cia}")" access_pass
+        read -p "$(echo -e "${pur}┣━━══[${yel}?${pur}] ${cia}Establecer${cia} contraseña de ${cia}acceso ${yel}--> ${cia}")" access_pass		# NO FUNCIONAN BIEN LOS COLORES
+
         echo -e " ${end}"
 
 		access_pass_final="$(echo -e "${red} $access_pass ${end}")" # Agregarle colores a la contraseña
@@ -511,7 +499,7 @@ while true; do
 	echo -e "${pur}╚══════════════════════════════════════════════════════════╝${end}\n\n"
 
 	# Recoger opción del usuario
-	read -p "$(echo -e "${pur}┣━━══${pur}[?] ${cia}Elige una opción ${pur}--> ${cia}")" option
+	read -p "$(echo -e "${pur}┣━━══[${yel}?${pur}] ${cia}Elige una opción ${yel}--> ${cia}")" option
 	echo -e "${end}"
 
 
