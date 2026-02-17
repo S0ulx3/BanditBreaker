@@ -269,7 +269,7 @@ function connect_to_level(){
 local LEVEL="$1"
 local IP="bandit$LEVEL@bandit.labs.overthewire.org"
 local PORT="2220"
-ACCESS_PASS="$(cat "$PSWD_FILE" 2>/dev/null | grep --color=never -A3 "IN-$LEVEL=" | grep "Contraseña" | cut -d ':' -f2- | xargs)"
+ACCESS_PASS="$(cat "$PSWD_FILE" 2>/dev/null | grep --color=never -A4 "IN-$LEVEL=" | grep "Contraseña" | cut -d ':' -f2- | xargs)"
 PASS_CLEAN=$(echo -e "$ACCESS_PASS" | sed 's/\x1b\[[0-9;]*[mGJK]//g' | xargs)	# Limpiamos la contraseña de colores
 
 # Conectarse al nivel seleccionado
