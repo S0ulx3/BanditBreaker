@@ -146,7 +146,7 @@ chmod +x BanditBreaker.sh
 
 ### Vista de Nivel
 
-![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Level.png)
+![f](https://github.com/S0ulx3/BanditBreaker/blob/main/BanditBreaker-Logo.png)
 
 ---
 
