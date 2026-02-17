@@ -17,7 +17,7 @@
 
 **Herramienta automatizada para resolver OverTheWire Bandit**
 
-[![Version](https://img.shields.io/badge/version-0.7--Beta-purple)](https://github.com/Shadow0011/BanditBreaker)
+[![Version](https://img.shields.io/badge/version-0.7.3--Beta-purple)](https://github.com/Shadow0011/BanditBreaker)
 [![License](https://img.shields.io/badge/license-MIT-cyan.svg)](LICENSE)
 [![Bash](https://img.shields.io/badge/bash-5.0+-green.svg)](https://www.gnu.org/software/bash/)
 [![Platform](https://img.shields.io/badge/platform-Linux-blue.svg)](https://www.linux.org/)
@@ -236,7 +236,7 @@ BanditBreaker/
 **Soul**
 
 - GitHub: [@S0ulx3](https://github.com/S0ulx3)
-- Versión: 0.7-Beta
+- Versión: 0.7.3-Beta
 
 ---
 
