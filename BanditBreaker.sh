@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## BanditBreaker ## By Shadow0011 ## V0.7.3-beta
+## BanditBreaker ## By Shadow0011 ## V0.7.4-beta
 
 
 # Funcion ctrl+c
@@ -128,7 +128,7 @@ function verify(){
     echo -e "${pur}┗━━═══════════════════════════════════════════════════════━━┛${end}"
 	echo -e "${pur}    ╰─>${cia} Extrayendo desde: ${yel}https://overthewire.org/wargames/bandit/${end}\n"
 
-    for levels in {0..34}; do
+    for levels in {1..33}; do
 
         make_files "$levels"    # Crear automaticamente las fichas de los niveles
 
@@ -157,7 +157,7 @@ local LEVEL
 local content
 
 	# Bucle que crea los archivos
-    for LEVEL in {0..34}; do
+    for LEVEL in {0..32}; do
 
 # Variable que establece el nombre del archivo según la vuelta
 WTPS_FILE="$WTPS_DIR/bandit$LEVEL.txt"
@@ -254,7 +254,7 @@ content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10
 echo "$content" > $WTPS_FILE
 ;;
 *)				# Acción que se realiza para todos los numeros mayores de 10 sin contar las excepciones antes tratadas.
-content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" |  sed 's|&gt|>|g')"
+content="$(curl -s "https://axcheron.github.io/writeups/otw/bandit/" | grep -A10000 "id=\"bandit-$LEVEL-solution" | grep -B10000 "id=\"bandit-$NEXT_LEVEL-solution" | sed 's/<[^>]*>//g' | grep -v "Bandit $NEXT_LEVEL Solution" | grep -v "Bandit $LEVEL Solution" | sed "s|&amp;|\&|g" | sed 's|&gt;|>|g')"
 echo "$content" > $WTPS_FILE
 ;;
 esac
@@ -302,6 +302,8 @@ make_files(){
 
 # Variable que recoge el nivel indicado y el siguiente nivel
 local LEVEL="$1"
+#local NEXT_LEVEL=$((LEVEL + 1))
+local PREV_LEVEL=$((LEVEL - 1))
 
 # Variables que guardan la descripción, notas, comandos...
 desc_preview="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Level Goal" | grep -v "Level Goal" | grep -B 10000 'Help!?' | grep -B 10000 "Commands" | grep -Ev 'Help!?|Donate!|Level Goal| you may need|ls,|ssh into bandit|NOTE|intended solution|instead.|shell-script|level!|NOTE 2|NOTE|Keep in mind|executed,|CONNECTED|Keep in mind|If you are having|try executing|very useful skill.|this is related|works as you think')"
@@ -312,23 +314,23 @@ helpful_note="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.ht
 note="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "NOTE" | grep -B 10000 'Commands' | grep -v "Commands you may need")" # Nivel 20-21 y nivel 22-23
 TIP="$(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "TIP" | grep -B 10000 'Donate!' | grep -v 'Donate!' | head -n -3)"
 
-local IP="bandit$LEVEL@bandit.labs.overthewire.org"
+local IP="bandit$PREV_LEVEL@bandit.labs.overthewire.org"
 local PORT="2220"
 
 
 
 # INICIO DE LA FICHA | NIVEL IP Y PUERTO + DESCRIPCIÓN
-echo -e "${pur}[==IN-$LEVEL=======================================================================]" >> "$PSWD_FILE"
-echo -e "${pur}┏━━══(${cia}Bandit Breaker${pur})══════════════════════════════════════════════════━━━━━━━┓${end}" >> "$PSWD_FILE"
-echo -e "${pur}   ${cia}Nivel${pur} : ${cia}$LEVEL${pur}  |  ${cia}IP${pur} : ${cia}$IP  ${pur}|  ${cia}Puerto${pur} : ${cia}$PORT ${pur}  ${end}" >> "$PSWD_FILE"
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}[==IN-$PREV_LEVEL=======================================================================]" >> "$PSWD_FILE"
+echo -e "${pur}┏━━══(${cia}Bandit Breaker${pur})═══════════════════════════════════════════════════━━━━━━┓${end}" >> "$PSWD_FILE"
+echo -e "${pur}  Nivel ${cia}$PREV_LEVEL ${pur}-> ${cia}$LEVEL ${pur}| IP ${pur}: ${cia}$IP ${pur}|  Puerto ${pur}: ${cia}$PORT ${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 echo -e "${pur}┃  ─  ${cia}Contraseña de acceso ${pur}: ${red}[No encontrada]${end}" >> "$PSWD_FILE" >> "$PSWD_FILE"
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 echo -e "${pur}┃    ─              ${blu}Descripción del nivel ${pur}── ${blu}Level Goal                  ${pur}─    ┃${end}" >> "$PSWD_FILE"
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 
 	# Mostrar descripción dependendiendo del nivel
-	if [[ $LEVEL -eq 20 || $LEVEL -eq 25 || $LEVEL -eq 34 ]]; then
+	if [[ $LEVEL -eq 20 || $LEVEL -eq 25 || $LEVEL -eq 32 ]]; then
 		echo -e "${cia}$desc_preview2 ${end}" | fmt -w 78 -s | pr -to 3 >> "$PSWD_FILE"
 	else
 		echo -e "${cia}$desc_preview ${end}" | fmt -w 78 -s | pr -to 3 >> "$PSWD_FILE"
@@ -337,9 +339,9 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 
 # COMANDOS POSIBLES
 
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 echo -e "${pur}┣━━─    ${pur}──  ${blu}Comandos que puedes necesitar para resolver este nivel  ${pur}──     ─━━┫" >> "$PSWD_FILE"
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 
 
 	# Comprobar si para este nivel muestran comandos útiles o no, para mostrar un mensaje acorde
@@ -356,9 +358,9 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 	# Comprobar si hay algún tip y mostrarlo en pantalla
 	if $(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "TIP" | grep -B 10000 'Donate!' | grep -v 'Donate!' &>/dev/null)
 	then
-		echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+		echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 		echo -e "${pur}┣━━─                     ──   ${blu}TIP para este nivel   ${pur}──                     ─━━┫${end}" >> "$PSWD_FILE"
-		echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+		echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 		echo -e "${pur}$TIP ${end}" | fmt -w 78 -s | pr -to 2 >> "$PSWD_FILE"
 
 	else
@@ -369,7 +371,7 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 # MATERIAL UTIL Y NOTAS
 echo -e "${pur}┣━═══════════════════════════════════════════════════════════════════════════━┫${end}" >> "$PSWD_FILE"
 echo -e "${pur}┃               ──  ${blu}Material de lectura útil ${pur}┃ ${blu}Notas y TIPS  ${pur}──               ┃${end}" >> "$PSWD_FILE"
-echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 
 	# Comprobar si existe material útil y mostrarlo en pantalla
 	if $(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Helpful Reading" | grep -B 10000 'Donate!' | head -n -4 | grep -v "Helpful" &>/dev/null)
@@ -386,7 +388,7 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 	if $(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "Helpful note" | grep -B 10000 "Commands you" | grep -v "Commands you" &>/dev/null)
 	then
 
-		echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+		echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 		echo -e "${blu}$helpful_note ${end}" | fmt -w 55 -s | pr -to 2 >> "$PSWD_FILE"		# Se muestran las notas útiles
 	else
 	:
@@ -399,15 +401,14 @@ echo -e "${pur}┣━━━━━━━━━━━━════════�
 	if $(curl -s "https://overthewire.org/wargames/bandit/bandit$LEVEL.html" | sed 's/<[^>]*>//g' | sed '/^$/d' | grep -v "OverTheWire:" | grep -A 10000 "NOTE" | grep -B 10000 'Commands' | grep -v "Commands you may need" &>/dev/null)
 	then
 
-		echo -e "${pur}┣━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
+		echo -e "${pur}┣━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┫${end}" >> "$PSWD_FILE"
 		echo -e "${blu}$note ${end}" | fmt -w 55 -s | pr -to 2 >> "$PSWD_FILE"		# Se muestran las notas
 	else
 	:
 	fi
 
-echo -e "${pur}┗━━━━━━━━━━━━══════════════════════════════════════════════════════════━━━━━━━┛" >> "$PSWD_FILE"		# Texto final para cerrar el menú
-
-echo -e "${pur}[=======================================================================IN-$LEVEL==]${end}\n" >> "$PSWD_FILE"		# Final de la ficha
+echo -e "${pur}┗━━━━━━━═══════════════════════════════════════════════════════════════━━━━━━━┛" >> "$PSWD_FILE"		# Texto final para cerrar el menú
+echo -e "${pur}[=======================================================================IN-$PREV_LEVEL==]${end}\n" >> "$PSWD_FILE"		# Final de la ficha
 
 }
 
@@ -417,13 +418,20 @@ function show_files(){
 
 # Mostrar la previsualización del nivel en la función levels
 local LEVEL="$1"
+local NEXT_LEVEL=$((LEVEL + 1))
+
 content="$(cat $PSWD_FILE | grep -A 1000000 "IN-$LEVEL=" | grep -B 1000000 "IN-$LEVEL=" | grep -v "IN-$LEVEL=")"
 
-#echo -e "${cia}╔═════════════════════════════════════════════════════════════════════════════════════════╗${end}"
-echo -e "$content" | pr -to 4
-#echo -e "${cia}╚═════════════════════════════════════════════════════════════════════════════════════════╝${end}"
+echo -e "$content" | pr -to 4		# Mostrar el contenido
 
-# Se han removido los delimitadores por cuestiones de pruebas estéticas, puede que no sea permanente... (De todas formas los he dejado comentados por si a alguien le gustaban especialmente)
+if [ $LEVEL -lt 32 ]; then
+	#echo -e "\n${pur} [💡] ${cia}Conectándote al nivel ${yel}$LEVEL${cia}, resolverás para obtener la contraseña del nivel ${yel}$NEXT_LEVEL${end}"
+	echo -e "\n${pur} [💡] ${cia}Resuelve el nivel ${yel}$LEVEL${cia} para obtener la contraseña del nivel ${yel}$NEXT_LEVEL${cia} y poder conectarte.${end}"
+else
+	echo -e "\n${pur} [💡] ${cia}Este es el nivel final.${end}"
+fi
+
+
 
 }
 
@@ -481,12 +489,12 @@ while true; do
 	echo -e "${pur}║          ${cia}◄${pur} [${yel}a${pur}] ${pur}Anterior    ${pur}┃${cia}    Siguiente ${pur}[${yel}s${pur}] ${cia}►${pur}          ║"
 	fi
 
-	if [ "$init_level" -eq 34 ]; then		# Si estamos en 34 se muestra el limite a la derecha
+	if [ "$init_level" -eq 32 ]; then		# Si estamos en 32 se muestra el limite a la derecha
 	echo -e "${pur}║          ${cia}◄${pur} [${yel}a${pur}] ${cia}Anterior    ${pur}┃${pur}    Siguiente ${pur}[${yel}s${pur}] ${cia}►${pur}          ║"
 	fi
 
 
-	if [[ "$init_level" -lt 34 && "$init_level" -gt 0 ]]; then		# Si no estamos en 34 ni en 0 se muestra sin límites
+	if [[ "$init_level" -lt 32 && "$init_level" -gt 0 ]]; then		# Si no estamos en 32 ni en 0 se muestra sin límites
 	echo -e "${pur}║          ${cia}◄${pur} [${yel}a${pur}] ${cia}Anterior    ${pur}┃${cia}    Siguiente ${pur}[${yel}s${pur}] ${cia}►${pur}          ║"
 
 	else
@@ -504,8 +512,7 @@ while true; do
 
 
     # Mostrar preview del nivel especificado
-    if [[ "$option" =~ ^([0-9]|[1-2][0-9]|3[0-4])$ ]]; then
-
+    if [[ "$option" =~ ^([0-9]|[1-2][0-9]|3[0-2])$ ]]; then			# Limitar el uso del menú del 1 al 32
         init_level="$option"
         levels
     else
@@ -523,9 +530,11 @@ while true; do
 		p)
 			modify_password "$init_level"
 		;;
-        a) if [ $init_level -gt 0 ]; then
+        a)
+        if [ $init_level -gt 0 ]; then
                 ((init_level--)); fi ;; # Ir a la pagina anterior restando 1 al numero de preview + añadido límite
-        s) if [ $init_level -lt 34 ]; then
+        s)
+        if [ $init_level -lt 32 ]; then
                 ((init_level++)); fi ;; # Ir a la pagina siguiente sumando 1 al numero de preview + añadido límite
 		e)	ctrl_c
 		;;
