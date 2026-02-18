@@ -236,7 +236,7 @@ BanditBreaker/
 **Soul**
 
 - GitHub: [@S0ulx3](https://github.com/S0ulx3)
-- Versión: 0.7.3-Beta
+- Versión: 0.7.4-Beta
 
 ---
 
