@@ -68,7 +68,7 @@ echo -e "\n${end}"; sleep 1.5; tput cnorm
 function verify(){
 
     # Programas necesarios
-    for requirements in sshpass ssh fzf curl wget pup; do
+    for requirements in sshpass ssh curl pup; do
 
         if $(! which $requirements &>/dev/null)
         then
